@@ -2,12 +2,14 @@ package com.example.dao;
 
 import com.example.domain.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface UserDao {
     @Insert("insert into toma_users (id,username,password,account) values(#{id},#{username},#{pw},#{ac}})")
     public int save(User user);
