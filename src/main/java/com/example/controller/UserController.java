@@ -8,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * 登录界面
+ */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private JavaWebToken javaWebToken;
@@ -24,20 +23,27 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("/login")//生成token
     public ResponseEntity<R> login(@RequestBody User user){
-        long time = 1000 * 60 * 60 *24;
+        long time = 1000 * 60 * 60 * 24;
         if (user != null) {
-            // 判断登录账号密码是否正确
-            if (userService.validateUser(user.getUsername(), user.getPassword())) {
-                String token = javaWebToken.makeToken(user.getUsername(), user.getAccount());
+            if(userService.have(user)) {
+                // 判断登录账号密码是否正确
+                if (userService.validateUser(user.getId(), user.getPassword())) {
+                    String token = javaWebToken.makeToken(user.getUsername(), user.getAccount(), time);
 //                stringRedisTemplate.opsForValue().set(token,user.getUsername(),time, TimeUnit.MILLISECONDS);
-                return ResponseEntity.ok().body(new R().add("token", token));
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username or password"));
+                    return ResponseEntity.ok().body(new R().success("Successful token creation"));
+                } else {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username or password"));
+                }
+            }else{
+                userService.toSave(user);
+                String token = javaWebToken.makeToken(user.getUsername(), user.getAccount(),time);
+                return ResponseEntity.ok().body(new R().success("Successful token creation"));
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username"));
         }
     }
+
 }

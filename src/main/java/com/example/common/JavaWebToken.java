@@ -6,9 +6,8 @@ import java.util.UUID;
 
 @Component
 public class JavaWebToken {
-    long time = 1000 * 60 * 60 *24;
     private String signature = "admin";
-    public String makeToken(String name,Integer role){
+    public String makeToken(String name,Integer role,long time){
         JwtBuilder jwtBuilder = Jwts.builder();
         String jwtToken = jwtBuilder
                 .setHeaderParam("typ", "JWT")

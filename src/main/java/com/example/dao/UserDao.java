@@ -9,14 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Mapper
 public interface UserDao {
-    @Insert("insert into toma_users (id,username,password,account) values(#{id},#{username},#{pw},#{ac}})")
-    public int save(User user);
-    @Update("update toma_users set  username = #{username}, pasword = #{pw} where ac = #{ac}")
-    public int update(User user);
-    @Select("select * from toma_users where id = #{id}")
-    public User getById(String id);
-    @Select("select * from toma_users")
-    public List<User> getAll();
+    @Select("SELECT * FROM toma_users WHERE id = #{id}")
+    public User User_getById(Integer id);
+    @Insert("INSERT INTO toma_users (id,username,account,password) VALUES (#{id},#{username},#{account},#{password}) ")
+    public void User_save(User user);
+    @Update("UPDATE toma_users set id = #{id},username = #{username},account = #{account},password = #{password}")
+    public void User_update(User user);
+    @Select("SELECT * FROM toma_users")
+    public List<User> User_getAll();
 }

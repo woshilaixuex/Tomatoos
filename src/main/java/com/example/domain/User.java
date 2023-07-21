@@ -1,5 +1,8 @@
 package com.example.domain;
 
+/**
+ * 个人账户
+ */
 public class User {
     private Integer id;
     private String username;
