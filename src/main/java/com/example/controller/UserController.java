@@ -27,19 +27,13 @@ public class UserController {
     public ResponseEntity<R> login(@RequestBody User user){
         long time = 1000 * 60 * 60 * 24;
         if (user != null) {
-            if(userService.have(user)) {
                 // 判断登录账号密码是否正确
-                if (userService.validateUser(user.getId(), user.getPassword())) {
-                    String token = javaWebToken.makeToken(user.getUsername(), user.getAccount(), time);
-//                stringRedisTemplate.opsForValue().set(token,user.getUsername(),time, TimeUnit.MILLISECONDS);
-                    return ResponseEntity.ok().body(new R().success("Successful token creation"));
-                } else {
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username or password"));
-                }
-            }else{
-                userService.toSave(user);
-                String token = javaWebToken.makeToken(user.getUsername(), user.getAccount(),time);
-                return ResponseEntity.ok().body(new R().success("Successful token creation"));
+            if (userService.validateUser(user.getId(), user.getPassword())) {
+                String token = javaWebToken.makeToken(user.getUsername(), user.getAccount(), time);
+//               stringRedisTemplate.opsForValue().set(token,user.getUsername(),time, TimeUnit.MILLISECONDS);
+                return ResponseEntity.ok().body(new R().success("Successful token creation").add("token",token));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username or password"));
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username"));

@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    public boolean validateUser(Integer id,String Tpassword){
+    public boolean validateUser(String id,String Tpassword){
         User user = userDao.User_getById(id);
         if(user == null){
             log.info("未存在该用户");

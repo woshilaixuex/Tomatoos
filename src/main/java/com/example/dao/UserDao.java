@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface UserDao {
     @Select("SELECT * FROM toma_users WHERE id = #{id}")
-    public User User_getById(Integer id);
+    public User User_getById(String id);
     @Insert("INSERT INTO toma_users (id,username,account,password) VALUES (#{id},#{username},#{account},#{password}) ")
     public void User_save(User user);
     @Update("UPDATE toma_users set id = #{id},username = #{username},account = #{account},password = #{password}")

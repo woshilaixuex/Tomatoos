@@ -1,4 +1,9 @@
 package com.example.domain;
 
-public class Seat {
+/**
+ * 座位
+ */
+public class Seat  {
+    private Integer state;
+    private String Attributes;
 }
