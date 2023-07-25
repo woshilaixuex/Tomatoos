@@ -4,32 +4,22 @@ package com.example.domain;
  * 个人账户
  */
 public class User {
-    private String id;
-    private String username;
+    private String num;
     private Integer account;
     private String password;
 
-    public User(String id, String username, Integer account, String password) {
-        this.id = id;
-        this.username = username;
+    public User(String num, Integer account, String password) {
+        this.num = num;
         this.account = account;
         this.password = password;
     }
 
-    public String getId() {
-        return id;
+    public String getNum() {
+        return num;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNum(String num) {
+        this.num = num;
     }
 
     public Integer getAccount() {
@@ -51,8 +41,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
+                "num='" + num + '\'' +
                 ", account=" + account +
                 ", password='" + password + '\'' +
                 '}';

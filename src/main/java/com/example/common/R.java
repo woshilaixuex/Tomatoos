@@ -1,5 +1,6 @@
 package com.example.common;
 
+import com.example.service.IntroductionService;
 import lombok.Data;
 
 import java.util.HashMap;

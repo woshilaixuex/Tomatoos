@@ -28,8 +28,8 @@ public class UserController {
         long time = 1000 * 60 * 60 * 24;
         if (user != null) {
                 // 判断登录账号密码是否正确
-            if (userService.validateUser(user.getId(), user.getPassword())) {
-                String token = javaWebToken.makeToken(user.getUsername(), user.getAccount(), time);
+            if (userService.validateUser(user.getNum(), user.getPassword())) {
+                String token = javaWebToken.makeToken(user.getNum(), user.getAccount(), user.getPassword(),time);
 //               stringRedisTemplate.opsForValue().set(token,user.getUsername(),time, TimeUnit.MILLISECONDS);
                 return ResponseEntity.ok().body(new R().success("Successful token creation").add("token",token));
             } else {

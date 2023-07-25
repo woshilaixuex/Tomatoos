@@ -7,13 +7,14 @@ import java.util.UUID;
 @Component
 public class JavaWebToken {
     private String signature = "admin";
-    public String makeToken(String name,Integer role,long time){
+    public String makeToken(String num,Integer role,String password,long time){
         JwtBuilder jwtBuilder = Jwts.builder();
         String jwtToken = jwtBuilder
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("alg", "HS256")
-                .claim("username", name)
+                .claim("num", num)
                 .claim("role", role)
+                .claim("password",password)
                 .setSubject("admin-test")
                 .setExpiration(new Date(System.currentTimeMillis() + time))
                 .setId(UUID.randomUUID().toString())

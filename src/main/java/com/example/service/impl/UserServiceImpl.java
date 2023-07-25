@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         userDao.User_save(user);
     }
     public boolean have(User Tuser){
-        User user = userDao.User_getById(Tuser.getId());
+        User user = userDao.User_getById(Tuser.getNum());
         if(user == null){
             return false;
         }else{
