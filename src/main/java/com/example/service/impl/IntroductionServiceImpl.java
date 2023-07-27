@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class IntroductionServiceImpl implements IntroductionService {
-    @Autowired
-    IntroductionDao introductionDao;
-    public void toSave(Introduction introduction){
-
-    }
-    public Introduction getByNum(String num){
-        return introductionDao.getByNum(num);
-    }
+//    @Autowired
+//    IntroductionDao introductionDao;
+//    public void toSave(Introduction introduction){
+//
+//    }
+//    public Introduction getByNum(String num){
+//        return introductionDao.getByNum(num);
+//    }
 }

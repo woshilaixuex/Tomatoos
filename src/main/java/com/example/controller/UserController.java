@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 登录界面
  */
@@ -29,8 +31,8 @@ public class UserController {
         if (user != null) {
                 // 判断登录账号密码是否正确
             if (userService.validateUser(user.getNum(), user.getPassword())) {
-                String token = javaWebToken.makeToken(user.getNum(), user.getAccount(), user.getPassword(),time);
-//               stringRedisTemplate.opsForValue().set(token,user.getUsername(),time, TimeUnit.MILLISECONDS);
+                String token = javaWebToken.makeToken(user,time);
+                stringRedisTemplate.opsForValue().set(user.getNum(),token,time, TimeUnit.MILLISECONDS);
                 return ResponseEntity.ok().body(new R().success("Successful token creation").add("token",token));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid username or password"));

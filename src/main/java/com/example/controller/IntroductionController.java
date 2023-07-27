@@ -2,14 +2,16 @@ package com.example.controller;
 
 import com.example.common.JavaWebToken;
 import com.example.common.R;
+import com.example.config.AuthenticatedUserContainer;
 import com.example.domain.Introduction;
 import com.example.service.impl.IntroductionServiceImpl;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/Intro")
@@ -21,20 +23,11 @@ public class IntroductionController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @GetMapping
-    public ResponseEntity<R> checkToken(@PathVariable String token){
-        if(token != null){
-            String storedToken = stringRedisTemplate.opsForValue().get("token");
-            if(storedToken.equals(token)){
-                Claims claims = javaWebToken.parseToken(token);
-                String num = claims.get("num",String.class);
-                Introduction introduction = introductionService.getByNum(num);
-                return ResponseEntity.ok().body(new R().success("Success").add("introduction",introduction));
-            }else{
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid member"));
-            }
-        }else{
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new R().error("Invalid token"));
-        }
+    public ResponseEntity<R> getIntro(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
+        AuthenticatedUserContainer.removeAuthenticatedUser(token);
+        return ResponseEntity.ok().body(new R().success("Successful").add("num",num));
     }
     @PutMapping("/update")
     public ResponseEntity<R> updateIntro(@RequestBody Introduction introduction){

@@ -9,7 +9,6 @@ public class AffairHis {
     private Integer id;
     private String num;
     private String A_name;
-    private long A_time;
-    private Date f_date;
-    private Date l_date;
+    private long time;
+    private Date o_time;
 }

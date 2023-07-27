@@ -13,8 +13,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    public boolean validateUser(String id,String Tpassword){
-        User user = userDao.User_getById(id);
+    public boolean validateUser(String num,String Tpassword){
+        User user = userDao.getByNum(num);
         if(user == null){
             log.info("未存在该用户");
             return false;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         userDao.User_save(user);
     }
     public boolean have(User Tuser){
-        User user = userDao.User_getById(Tuser.getNum());
+        User user = userDao.getByNum(Tuser.getNum());
         if(user == null){
             return false;
         }else{

@@ -1,20 +1,25 @@
 package com.example.common;
+import com.example.domain.User;
 import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class JavaWebToken {
     private String signature = "admin";
-    public String makeToken(String num,Integer role,String password,long time){
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    public String makeToken(User user, long time){
         JwtBuilder jwtBuilder = Jwts.builder();
         String jwtToken = jwtBuilder
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("alg", "HS256")
-                .claim("num", num)
-                .claim("role", role)
-                .claim("password",password)
+                .claim("num", user.getNum())
                 .setSubject("admin-test")
                 .setExpiration(new Date(System.currentTimeMillis() + time))
                 .setId(UUID.randomUUID().toString())
@@ -22,11 +27,22 @@ public class JavaWebToken {
                 .compact();
         return jwtToken;
     }
-    public Claims parseToken(String NewToken){
+    public String parseToken(String NewToken){
         String token = NewToken;
         JwtParser jwtParser = Jwts.parser();
         Jws<Claims> claimsJws = jwtParser.setSigningKey(signature).parseClaimsJws(token);
         Claims claims = claimsJws.getBody();
-        return claims;
+        String num = claims.get("num",String.class);
+        String storedToken = stringRedisTemplate.opsForValue().get(num);
+        if(storedToken != null) {
+            if (storedToken.equals(token)) {
+                return num;
+            } else {
+                return null;
+            }
+        }else{
+            log.info("未在redis中找到Token");
+            return null;
+        }
     }
 }

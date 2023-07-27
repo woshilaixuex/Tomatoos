@@ -5,6 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface IntroductionService {
-    public void toSave(Introduction introduction);
-    public Introduction getByNum(String num);
+//    public void toSave(Introduction introduction);
+//    public Introduction getByNum(String num);
 }

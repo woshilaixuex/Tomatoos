@@ -11,8 +11,8 @@ import java.util.List;
 
 @Mapper
 public interface UserDao {
-    @Select("SELECT * FROM toma_users WHERE id = #{id}")
-    public User User_getById(String id);
+    @Select("SELECT * FROM toma_users WHERE num = #{num}")
+    public User getByNum(String num);
     @Insert("INSERT INTO toma_users (num,account,password) VALUES (#{num},#{account},#{password}) ")
     public void User_save(User user);
     @Update("UPDATE toma_users set num = #{num},account = #{account},password = #{password}")
