@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.dao.IntroductionDao;
 import com.example.dao.UserDao;
 import com.example.domain.User;
 import com.example.service.UserService;
@@ -37,5 +38,9 @@ public class UserServiceImpl implements UserService {
         }else{
             return true;
         }
+    }
+    public Integer getAccount(String num){
+        User user = userDao.getByNum(num);
+        return user.getAccount();
     }
 }

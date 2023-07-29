@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AffairHisImpl implements AffairHisService {
+public class AffairHisServiceImpl implements AffairHisService {
     @Autowired
     AffairHisDao affairHisDao;
     public List<AffairHis> getAll(String num){

@@ -4,7 +4,8 @@ package com.example.controller;
 import com.example.common.R;
 import com.example.config.AuthenticatedUserContainer;
 import com.example.domain.Affair;
-import com.example.service.impl.AffairHisImpl;
+import com.example.domain.AffairHis;
+import com.example.service.impl.AffairHisServiceImpl;
 import com.example.service.impl.AffairServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class AffairController {
     @Autowired
     private AffairServiceImpl affairServiceimpl;
     @Autowired
-    private AffairHisImpl affairHisimpl;
+    private AffairHisServiceImpl affairHisServiceimpl;
+
     @GetMapping()
     public ResponseEntity<R> getAffair(HttpServletRequest request){
         String token = request.getHeader("Authorization");
@@ -36,11 +38,11 @@ public class AffairController {
         return  ResponseEntity.ok().body(new R().success("Successful create").add("affair",affair));
     }
     @PostMapping("/his")
-    public ResponseEntity<R> saveAffairHis(HttpServletRequest request, Affair affair){
+    public ResponseEntity<R> saveAffairHis(HttpServletRequest request, AffairHis affairHis){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
-        affair.setNum(num);
-
+        affairHisServiceimpl.save(affairHis);
+        return  ResponseEntity.ok().body(new R().success("Successful create").add("affairHis",affairHis));
     }
     @PutMapping()
     public ResponseEntity<R> update(HttpServletRequest request, Affair affair){

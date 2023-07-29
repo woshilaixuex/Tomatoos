@@ -15,7 +15,7 @@ public interface UserDao {
     public User getByNum(String num);
     @Insert("INSERT INTO toma_users (num,account,password) VALUES (#{num},#{account},#{password}) ")
     public void User_save(User user);
-    @Update("UPDATE toma_users set num = #{num},account = #{account},password = #{password}")
+    @Update("UPDATE toma_users set account = #{account},password = #{password} WHERE num = #{num}}")
     public void User_update(User user);
     @Select("SELECT * FROM toma_users")
     public List<User> User_getAll();

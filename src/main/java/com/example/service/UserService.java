@@ -9,4 +9,5 @@ public interface UserService {
 
     public void toSave(User user);
     public boolean have(User user);
+    public Integer getAccount(String num);
 }
