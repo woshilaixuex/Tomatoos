@@ -1,5 +1,6 @@
 package com.example.domain;
 
+
 import java.awt.image.BufferedImage;
 
 /**
@@ -10,10 +11,10 @@ public class Introduction {
     private String username;
     private String email;
     private String message;
-    private BufferedImage ava_image;
-    private BufferedImage back_image;
+    private String ava_image;
+    private String back_image;
 
-    public Introduction(String num, String username, String email, String message, BufferedImage ava_image, BufferedImage back_image) {
+    public Introduction(String num, String username, String email, String message, String ava_image, String back_image) {
         this.num = num;
         this.username = username;
         this.email = email;
@@ -54,19 +55,19 @@ public class Introduction {
         this.message = message;
     }
 
-    public BufferedImage getAva_image() {
+    public String getAva_image() {
         return ava_image;
     }
 
-    public void setAva_image(BufferedImage ava_image) {
+    public void setAva_image(String ava_image) {
         this.ava_image = ava_image;
     }
 
-    public BufferedImage getBack_image() {
+    public String getBack_image() {
         return back_image;
     }
 
-    public void setBack_image(BufferedImage back_image) {
+    public void setBack_image(String back_image) {
         this.back_image = back_image;
     }
 }
