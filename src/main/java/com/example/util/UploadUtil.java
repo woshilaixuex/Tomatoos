@@ -25,8 +25,8 @@ public class UploadUtil {
     static COSClient cosClient = null;
     static final String TENGXUN_url = "https://imge-1319580658.cos.ap-guangzhou.myqcloud.com/";
     static {
-        String secretId = "AKIDALFIKE4vegkilppdMAsSq0wiIlL0qeUI";
-        String secretKey = "z4A92rdLxRuAD8oLfkprFRRHvLXXItTu";
+        String secretId = "";
+        String secretKey = "";
         cred = new BasicCOSCredentials(secretId, secretKey);
         Region region = new Region("ap-guangzhou");
         clientConfig = new ClientConfig(region);
