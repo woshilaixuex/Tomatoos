@@ -26,7 +26,7 @@ public class SeatController {
         return ResponseEntity.ok().body(new R().success("Successful").add("lis",lis));
     }
     @PostMapping()
-    public ResponseEntity<R> saveSeat(HttpServletRequest request,Seat seat){
+    public ResponseEntity<R> saveSeat(HttpServletRequest request,@RequestBody Seat seat){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
         int ac = userServiceImpl.getAccount(num);
@@ -45,7 +45,7 @@ public class SeatController {
         return ResponseEntity.ok().body(new R().success("Successful").add("account",ac));
     }
     @PutMapping()
-    public ResponseEntity<R> upSeat(HttpServletRequest request,Seat seat){
+    public ResponseEntity<R> upSeat(HttpServletRequest request,@RequestBody Seat seat){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
         int ac = userServiceImpl.getAccount(num);

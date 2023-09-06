@@ -23,7 +23,7 @@ public class UploadUtil {
     static COSCredentials cred = null;
     static ClientConfig clientConfig = null;
     static COSClient cosClient = null;
-    static final String TENGXUN_url = "https://imge-1319580658.cos.ap-guangzhou.myqcloud.com/";
+    static final String TENGXUN_url = "";
     static {
         String secretId = "AKIDALFIKE4vegkilppdMAsSq0wiIlL0qeUI";
         String secretKey = "z4A92rdLxRuAD8oLfkprFRRHvLXXItTu";
@@ -33,11 +33,12 @@ public class UploadUtil {
         clientConfig.setHttpProtocol(HttpProtocol.http);
         cosClient = new COSClient(cred, clientConfig);
     }
-    public static String uploadImage(MultipartFile file) throws IOException {
+
+    public static String uploadImageAva(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         int imgext = originalFilename.lastIndexOf('.');
         String ext = "." + originalFilename.substring(imgext + 1);
-        String uuid = UUID.randomUUID().toString().replace("_","");
+        String uuid = UUID.randomUUID().toString().replace("-","");
         String filename = uuid + ext;
         File Localfile = File.createTempFile("temp", null);
         try (InputStream inputStream = file.getInputStream()) {
@@ -45,6 +46,25 @@ public class UploadUtil {
         }
         System.out.println(filename);
         String key = "avg_imge/" + filename;
+        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key,Localfile);
+        PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
+        cosClient.shutdown();
+        return TENGXUN_url + key;
+    }
+    public static String uploadImageBack(MultipartFile file) throws IOException {
+        String originalFilename = file.getOriginalFilename();
+        int imgext = originalFilename.lastIndexOf('.');
+        String ext = "." + originalFilename.substring(imgext + 1);
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        String filename = uuid + ext;
+        File Localfile = File.createTempFile("temp", null);
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, Localfile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }catch (Exception e){
+            throw e;
+        }
+        System.out.println(filename);
+        String key = "back_imge/" + filename;
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key,Localfile);
         PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
         cosClient.shutdown();

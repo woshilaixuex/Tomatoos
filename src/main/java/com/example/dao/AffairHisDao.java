@@ -11,6 +11,6 @@ import java.util.List;
 public interface AffairHisDao {
     @Select("SELECT * FROM toma_affairhis WHERE num = #{num}")
     public List<AffairHis> getByNum(String num);
-    @Insert("INSERT INTO  toma_affair (num,A_name,time,o_time) VALUES (#{num},#{A_name},#{time},#{o_time})")
+    @Insert("INSERT INTO  toma_affairhis (num,a_name,DuTime,o_time) VALUES (#{num},#{a_name},#{DuTime},#{o_time})")
     public void save(AffairHis affairHis);
 }

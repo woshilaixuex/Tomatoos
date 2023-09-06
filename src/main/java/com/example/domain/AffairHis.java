@@ -9,15 +9,8 @@ public class AffairHis {
     private Integer id;
     private String num;
     private String a_name;
-    private long time;
+    private long DuTime;
     private Date o_time;
-
-    public AffairHis(String num, String a_name, long time, Date o_time) {
-        this.num = num;
-        this.a_name = a_name;
-        this.time = time;
-        this.o_time = o_time;
-    }
 
     public Integer getId() {
         return id;
@@ -43,12 +36,12 @@ public class AffairHis {
         this.a_name = a_name;
     }
 
-    public long getTime() {
-        return time;
+    public long getDuTime() {
+        return DuTime;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setDuTime(long duTime) {
+        DuTime = duTime;
     }
 
     public Date getO_time() {
@@ -57,5 +50,24 @@ public class AffairHis {
 
     public void setO_time(Date o_time) {
         this.o_time = o_time;
+    }
+
+    public AffairHis(Integer id, String num, String a_name, long duTime, Date o_time) {
+        this.id = id;
+        this.num = num;
+        this.a_name = a_name;
+        DuTime = duTime;
+        this.o_time = o_time;
+    }
+
+    @Override
+    public String toString() {
+        return "AffairHis{" +
+                "id=" + id +
+                ", num='" + num + '\'' +
+                ", a_name='" + a_name + '\'' +
+                ", DuTime=" + DuTime +
+                ", o_time=" + o_time +
+                '}';
     }
 }

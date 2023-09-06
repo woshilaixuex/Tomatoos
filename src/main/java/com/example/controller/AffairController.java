@@ -30,22 +30,22 @@ public class AffairController {
         return ResponseEntity.ok().body(new R().success("Successful get").add("lis",lis));
     }
     @PostMapping()
-    public ResponseEntity<R> saveAffair(HttpServletRequest request, Affair affair){
+    public ResponseEntity<R> saveAffair(HttpServletRequest request,@RequestBody Affair affair){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
-        affair.setNum(num);
+//        affair.setNum(num);
         affairServiceimpl.save(affair);
         return  ResponseEntity.ok().body(new R().success("Successful create").add("affair",affair));
     }
     @PostMapping("/his")
-    public ResponseEntity<R> saveAffairHis(HttpServletRequest request, AffairHis affairHis){
+    public ResponseEntity<R> saveAffairHis(HttpServletRequest request,@RequestBody AffairHis affairHis){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
         affairHisServiceimpl.save(affairHis);
         return  ResponseEntity.ok().body(new R().success("Successful create").add("affairHis",affairHis));
     }
     @PutMapping()
-    public ResponseEntity<R> update(HttpServletRequest request, Affair affair){
+    public ResponseEntity<R> update(HttpServletRequest request,@RequestBody Affair affair){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
         affair.setNum(num);
@@ -54,7 +54,7 @@ public class AffairController {
         return  ResponseEntity.ok().body(new R().success("Successful update").add("affair",affair));
     }
     @DeleteMapping()
-    public ResponseEntity<R> delete(HttpServletRequest request, Affair affair){
+    public ResponseEntity<R> delete(HttpServletRequest request,@RequestBody Affair affair){
         String token = request.getHeader("Authorization");
         String num = AuthenticatedUserContainer.getAuthenticatedUser(token);
         affair.setNum(num);

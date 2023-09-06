@@ -1,8 +1,6 @@
 package com.example.domain;
 
 
-import java.awt.image.BufferedImage;
-
 /**
  * 简介
  */
@@ -14,14 +12,6 @@ public class Introduction {
     private String ava_image;
     private String back_image;
 
-    public Introduction(String num, String username, String email, String message, String ava_image, String back_image) {
-        this.num = num;
-        this.username = username;
-        this.email = email;
-        this.message = message;
-        this.ava_image = ava_image;
-        this.back_image = back_image;
-    }
 
     public String getNum() {
         return num;
@@ -47,7 +37,7 @@ public class Introduction {
         this.email = email;
     }
 
-    public String getMessage() {
+    public String getMessage(String s) {
         return message;
     }
 
@@ -69,5 +59,17 @@ public class Introduction {
 
     public void setBack_image(String back_image) {
         this.back_image = back_image;
+    }
+
+    @Override
+    public String toString() {
+        return "Introduction{" +
+                "num='" + num + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", message='" + message + '\'' +
+                ", ava_image='" + ava_image + '\'' +
+                ", back_image='" + back_image + '\'' +
+                '}';
     }
 }
